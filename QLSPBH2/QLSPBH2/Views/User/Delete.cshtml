@@ -1,0 +1,47 @@
+﻿@model QLSPBH2.tbl_NguoiDung
+
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "Xóa Người Dùng";
+}
+
+<h2>Xóa Người Dùng</h2>
+
+<h3>Bạn có chắc muốn xóa người dùng này?</h3>
+<div>
+    <h4>Người Dùng</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.hoten)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.hoten)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.mssv)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.mssv)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Hủy bỏ", "Index")
+        </div>
+    }
+</div>

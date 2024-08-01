@@ -1,0 +1,39 @@
+﻿@model QLSPBH2.tbl_DanhSach
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Sửa</h2>
+
+<form action="/DanhSach/Edit" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label>ID</label>
+        <input type="hidden" class="form-control" value="@Model.IDDS" id="IDDS" name="IDDS" />
+    </div>
+
+    <div class="form-group">
+        <label>Tên Danh Sách</label>
+        <input type="text" class="form-control" value="@Model.TenDanhSach" id="TenDanhSach" name="TenDanhSach" />
+    </div>
+
+    <div class="form-group">
+        <label>Mô Tả</label>
+        <input type="text" class="form-control" value="@Model.MoTa" id="MoTa" name="MoTa" />
+    </div>
+
+    <div class="form-group">
+        <label>ID Danh Sách Cha</label>
+        <select class="form-control" id="IDDanhSachCha" name="IDDanhSachCha">
+            <option value="">Danh Sách Gốc</option>
+            @foreach (var item in ViewBag.DanhSachChaList)
+            {
+                <option value="@item.Value" @(item.Value == Model.IDDanhSachCha?.ToString() ? "selected" : "")>@item.Text</option>
+            }
+        </select>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Lưu</button>
+</form>

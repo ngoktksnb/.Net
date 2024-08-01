@@ -1,0 +1,44 @@
+﻿@model QLSPBH2.tbl_AnhBia
+
+@{
+    ViewBag.Title = "Thêm Mới Ảnh Bìa";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Thêm Mới Ảnh Bìa</h2>
+
+@using (Html.BeginForm("CreateAnhBia", "AnhBia", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label for="HinhAnhBia">Hình Ảnh Bìa</label>
+        <input type="file" class="form-control" name="imageFile" id="HinhAnhBia" onchange="previewImage(this)" />
+        <div id="imagePreview" class="image-preview"></div>
+        @Html.ValidationMessageFor(model => model.HinhAnhBia, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        function previewImage(input) {
+            var imagePreview = document.getElementById('imagePreview');
+            imagePreview.innerHTML = "";
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'img-thumbnail';
+                    img.style.maxWidth = '200px';
+                    img.style.maxHeight = '200px';
+                    img.style.marginRight = '10px';
+                    imagePreview.appendChild(img);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

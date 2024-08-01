@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Your Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .main-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            padding-top: 20px;
+            overflow-y: auto; /* Cho phép cuộn thanh sidebar nếu nội dung quá dài */
+            z-index: 1030; /* Đảm bảo sidebar hiển thị trên các thành phần khác */
+        }
+
+        .content-wrapper {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .mauchu a,
+        .mauchu p,
+        .mauchu ul,
+        .mauchu li {
+            color: #fff;
+        }
+
+        .mauchu a {
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: block;
+            padding: 10px 20px;
+            font-size: 14px; /* Thu nhỏ kích thước chữ */
+        }
+
+            .mauchu a:hover {
+                background-color: #333;
+                color: #fff;
+            }
+
+        .mauchu p {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 16px; /* Tăng kích thước chữ tiêu đề */
+        }
+
+        .btn-logout {
+            background-color: red;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            text-decoration: none;
+            margin-bottom: 10px;
+            font-size: 14px; /* Thu nhỏ kích thước chữ */
+        }
+
+            .btn-logout:hover {
+                background-color: #c70000;
+            }
+    </style>
+</head>
+<body>
+    <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #343a40;">
+        <div class="mauchu">
+            <ul>
+                <li>
+                    <a href="/Account/Logout" class="btn-logout">Đăng Xuất</a>
+                </li>
+            </ul>
+
+            <ul>
+                <li>
+                    <p>Quản Lý Tài Khoản</p>
+                    <ul>
+                        <li>
+                            <a href="/User/Index">Danh Sách Tài Khoản</a>
+                        </li>
+                        <li>
+                            <a href="/User/Create">Thêm mới Tài Khoản</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul>
+                <li>
+                    <p>Quản Lý Danh Sách</p>
+                    <ul>
+                        <li>
+                            <a href="/DanhSach/Index">Hiển Thị Danh Sách</a>
+                        </li>
+                        <li>
+                            <a href="/DanhSach/Create">+ Thêm Mới Danh Sách</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul>
+                <li>
+                    <p>Quản Lý Sản Phẩm</p>
+                    <ul>
+                        <li>
+                            <a href="/SanPham/Index">Danh Sách Sản Phẩm</a>
+                        </li>
+                        <li>
+                            <a href="/SanPham/CreateSanPham">+ Thêm Mới Sản Phẩm</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul>
+                <li>
+                    <p>Quản Lý Ảnh Bìa</p>
+                    <ul>
+                        <li>
+                            <a href="/AnhBia/Index">Danh Sách Ảnh Bìa</a>
+                        </li>
+                        <li>
+                            <a href="/AnhBia/CreateAnhBia">+ Thêm Mới 1 Ảnh Bìa</a>
+                        </li>
+                        <li>
+                            <a href="/AnhBia/CreateAnhBia2">+ Thêm Mới nhiều Ảnh Bìa</a>
+                        </li>
+                        <li>
+                            <a href="/AnhBia/Slider">Slider Ảnh Bìa</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <div class="content-wrapper">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLSP1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_AnhBia">
+    <Key>
+      <PropertyRef Name="IDAB" />
+    </Key>
+    <Property Name="IDAB" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HinhAnhBia" Type="text" />
+  </EntityType>
+  <EntityType Name="tbl_DanhSach">
+    <Key>
+      <PropertyRef Name="IDDS" />
+    </Key>
+    <Property Name="IDDS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenDanhSach" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="MoTa" Type="nvarchar" MaxLength="1000" />
+    <Property Name="IDDanhSachCha" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_NguoiDung">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="matkhau" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="hoten" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="mssv" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="isDelete" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_SanPham">
+    <Key>
+      <PropertyRef Name="IDSP" />
+    </Key>
+    <Property Name="IDSP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaSP" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MoTa" Type="nvarchar" MaxLength="1000" />
+    <Property Name="HinhAnh" Type="text" />
+    <Property Name="IDDS" Type="int" />
+  </EntityType>
+  <Association Name="FK_tbl_SanPham_tbl_DanhSach">
+    <End Role="tbl_DanhSach" Type="Self.tbl_DanhSach" Multiplicity="0..1" />
+    <End Role="tbl_SanPham" Type="Self.tbl_SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_DanhSach">
+        <PropertyRef Name="IDDS" />
+      </Principal>
+      <Dependent Role="tbl_SanPham">
+        <PropertyRef Name="IDDS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLSP1ModelStoreContainer">
+    <EntitySet Name="tbl_AnhBia" EntityType="Self.tbl_AnhBia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_DanhSach" EntityType="Self.tbl_DanhSach" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_NguoiDung" EntityType="Self.tbl_NguoiDung" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_SanPham" EntityType="Self.tbl_SanPham" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tbl_SanPham_tbl_DanhSach" Association="Self.FK_tbl_SanPham_tbl_DanhSach">
+      <End Role="tbl_DanhSach" EntitySet="tbl_DanhSach" />
+      <End Role="tbl_SanPham" EntitySet="tbl_SanPham" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

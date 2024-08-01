@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLSP1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_AnhBia">
+    <Key>
+      <PropertyRef Name="IDAB" />
+    </Key>
+    <Property Name="IDAB" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HinhAnhBia" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_DanhSach">
+    <Key>
+      <PropertyRef Name="IDDS" />
+    </Key>
+    <Property Name="IDDS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenDanhSach" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MoTa" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="IDDanhSachCha" Type="Int32" />
+    <NavigationProperty Name="tbl_SanPham" Relationship="Self.FK_tbl_SanPham_tbl_DanhSach" FromRole="tbl_DanhSach" ToRole="tbl_SanPham" />
+  </EntityType>
+  <EntityType Name="tbl_NguoiDung">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="matkhau" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="hoten" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="mssv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_SanPham">
+    <Key>
+      <PropertyRef Name="IDSP" />
+    </Key>
+    <Property Name="IDSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MoTa" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IDDS" Type="Int32" />
+    <NavigationProperty Name="tbl_DanhSach" Relationship="Self.FK_tbl_SanPham_tbl_DanhSach" FromRole="tbl_SanPham" ToRole="tbl_DanhSach" />
+  </EntityType>
+  <Association Name="FK_tbl_SanPham_tbl_DanhSach">
+    <End Role="tbl_DanhSach" Type="Self.tbl_DanhSach" Multiplicity="0..1" />
+    <End Role="tbl_SanPham" Type="Self.tbl_SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_DanhSach">
+        <PropertyRef Name="IDDS" />
+      </Principal>
+      <Dependent Role="tbl_SanPham">
+        <PropertyRef Name="IDDS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLSP1Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_AnhBia" EntityType="Self.tbl_AnhBia" />
+    <EntitySet Name="tbl_DanhSach" EntityType="Self.tbl_DanhSach" />
+    <EntitySet Name="tbl_NguoiDung" EntityType="Self.tbl_NguoiDung" />
+    <EntitySet Name="tbl_SanPham" EntityType="Self.tbl_SanPham" />
+    <AssociationSet Name="FK_tbl_SanPham_tbl_DanhSach" Association="Self.FK_tbl_SanPham_tbl_DanhSach">
+      <End Role="tbl_DanhSach" EntitySet="tbl_DanhSach" />
+      <End Role="tbl_SanPham" EntitySet="tbl_SanPham" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

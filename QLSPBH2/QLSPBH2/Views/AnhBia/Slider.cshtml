@@ -1,0 +1,92 @@
+﻿@model IEnumerable<QLSPBH2.tbl_AnhBia>
+
+@{
+    ViewBag.Title = "Slider Ảnh Bìa";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Slider Ảnh Bìa</h2>
+
+<div class="slider-container">
+    <div id="slider">
+        @foreach (var item in Model)
+        {
+            foreach (var img in item.HinhAnhBia.Split('|'))
+            {
+                <img src="@Url.Content("~/Images/" + img)" alt="Ảnh Bìa" class="slider-image" />
+            }
+        }
+    </div>
+    <button id="prev" class="slider-control">Prev</button>
+    <button id="next" class="slider-control">Next</button>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let currentIndex = 0;
+            const images = $('#slider .slider-image');
+            const totalImages = images.length;
+
+            function showImage(index) {
+                images.hide();
+                $(images[index]).show();
+            }
+
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % totalImages;
+                showImage(currentIndex);
+            }
+
+            function prevImage() {
+                currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+                showImage(currentIndex);
+            }
+
+            $('#next').click(nextImage);
+            $('#prev').click(prevImage);
+
+            setInterval(nextImage, 3000);
+
+            showImage(currentIndex); // Hiển thị ảnh đầu tiên
+        });
+    </script>
+}
+
+<style>
+    .slider-container {
+        position: relative;
+        max-width: 800px;
+        margin: auto;
+    }
+
+    #slider {
+        position: relative;
+    }
+
+    .slider-image {
+        display: none;
+        width: 100%;
+        height: auto;
+    }
+
+    .slider-control {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    #prev {
+        left: 10px;
+    }
+
+    #next {
+        right: 10px;
+    }
+</style>

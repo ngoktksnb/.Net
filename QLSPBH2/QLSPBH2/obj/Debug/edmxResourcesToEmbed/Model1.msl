@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QLSP1ModelStoreContainer" CdmEntityContainer="QLSP1Entities1">
+    <EntitySetMapping Name="tbl_AnhBia">
+      <EntityTypeMapping TypeName="QLSP1Model.tbl_AnhBia">
+        <MappingFragment StoreEntitySet="tbl_AnhBia">
+          <ScalarProperty Name="IDAB" ColumnName="IDAB" />
+          <ScalarProperty Name="HinhAnhBia" ColumnName="HinhAnhBia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_DanhSach">
+      <EntityTypeMapping TypeName="QLSP1Model.tbl_DanhSach">
+        <MappingFragment StoreEntitySet="tbl_DanhSach">
+          <ScalarProperty Name="IDDS" ColumnName="IDDS" />
+          <ScalarProperty Name="TenDanhSach" ColumnName="TenDanhSach" />
+          <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+          <ScalarProperty Name="IDDanhSachCha" ColumnName="IDDanhSachCha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_NguoiDung">
+      <EntityTypeMapping TypeName="QLSP1Model.tbl_NguoiDung">
+        <MappingFragment StoreEntitySet="tbl_NguoiDung">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="matkhau" ColumnName="matkhau" />
+          <ScalarProperty Name="hoten" ColumnName="hoten" />
+          <ScalarProperty Name="mssv" ColumnName="mssv" />
+          <ScalarProperty Name="isDelete" ColumnName="isDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_SanPham">
+      <EntityTypeMapping TypeName="QLSP1Model.tbl_SanPham">
+        <MappingFragment StoreEntitySet="tbl_SanPham">
+          <ScalarProperty Name="IDSP" ColumnName="IDSP" />
+          <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+          <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+          <ScalarProperty Name="IDDS" ColumnName="IDDS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

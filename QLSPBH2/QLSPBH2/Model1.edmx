@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QLSP1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_AnhBia">
+          <Key>
+            <PropertyRef Name="IDAB" />
+          </Key>
+          <Property Name="IDAB" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HinhAnhBia" Type="text" />
+        </EntityType>
+        <EntityType Name="tbl_DanhSach">
+          <Key>
+            <PropertyRef Name="IDDS" />
+          </Key>
+          <Property Name="IDDS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenDanhSach" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="MoTa" Type="nvarchar" MaxLength="1000" />
+          <Property Name="IDDanhSachCha" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_NguoiDung">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="matkhau" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="hoten" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="mssv" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="isDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_SanPham">
+          <Key>
+            <PropertyRef Name="IDSP" />
+          </Key>
+          <Property Name="IDSP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaSP" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MoTa" Type="nvarchar" MaxLength="1000" />
+          <Property Name="HinhAnh" Type="text" />
+          <Property Name="IDDS" Type="int" />
+        </EntityType>
+        <Association Name="FK_tbl_SanPham_tbl_DanhSach">
+          <End Role="tbl_DanhSach" Type="Self.tbl_DanhSach" Multiplicity="0..1" />
+          <End Role="tbl_SanPham" Type="Self.tbl_SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_DanhSach">
+              <PropertyRef Name="IDDS" />
+            </Principal>
+            <Dependent Role="tbl_SanPham">
+              <PropertyRef Name="IDDS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLSP1ModelStoreContainer">
+          <EntitySet Name="tbl_AnhBia" EntityType="Self.tbl_AnhBia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_DanhSach" EntityType="Self.tbl_DanhSach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_NguoiDung" EntityType="Self.tbl_NguoiDung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SanPham" EntityType="Self.tbl_SanPham" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_SanPham_tbl_DanhSach" Association="Self.FK_tbl_SanPham_tbl_DanhSach">
+            <End Role="tbl_DanhSach" EntitySet="tbl_DanhSach" />
+            <End Role="tbl_SanPham" EntitySet="tbl_SanPham" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLSP1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_AnhBia">
+          <Key>
+            <PropertyRef Name="IDAB" />
+          </Key>
+          <Property Name="IDAB" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HinhAnhBia" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_DanhSach">
+          <Key>
+            <PropertyRef Name="IDDS" />
+          </Key>
+          <Property Name="IDDS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenDanhSach" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MoTa" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IDDanhSachCha" Type="Int32" />
+          <NavigationProperty Name="tbl_SanPham" Relationship="Self.FK_tbl_SanPham_tbl_DanhSach" FromRole="tbl_DanhSach" ToRole="tbl_SanPham" />
+        </EntityType>
+        <EntityType Name="tbl_NguoiDung">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="matkhau" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="hoten" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mssv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isDelete" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_SanPham">
+          <Key>
+            <PropertyRef Name="IDSP" />
+          </Key>
+          <Property Name="IDSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MoTa" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IDDS" Type="Int32" />
+          <NavigationProperty Name="tbl_DanhSach" Relationship="Self.FK_tbl_SanPham_tbl_DanhSach" FromRole="tbl_SanPham" ToRole="tbl_DanhSach" />
+        </EntityType>
+        <Association Name="FK_tbl_SanPham_tbl_DanhSach">
+          <End Role="tbl_DanhSach" Type="Self.tbl_DanhSach" Multiplicity="0..1" />
+          <End Role="tbl_SanPham" Type="Self.tbl_SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_DanhSach">
+              <PropertyRef Name="IDDS" />
+            </Principal>
+            <Dependent Role="tbl_SanPham">
+              <PropertyRef Name="IDDS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLSP1Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_AnhBia" EntityType="Self.tbl_AnhBia" />
+          <EntitySet Name="tbl_DanhSach" EntityType="Self.tbl_DanhSach" />
+          <EntitySet Name="tbl_NguoiDung" EntityType="Self.tbl_NguoiDung" />
+          <EntitySet Name="tbl_SanPham" EntityType="Self.tbl_SanPham" />
+          <AssociationSet Name="FK_tbl_SanPham_tbl_DanhSach" Association="Self.FK_tbl_SanPham_tbl_DanhSach">
+            <End Role="tbl_DanhSach" EntitySet="tbl_DanhSach" />
+            <End Role="tbl_SanPham" EntitySet="tbl_SanPham" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLSP1ModelStoreContainer" CdmEntityContainer="QLSP1Entities1">
+          <EntitySetMapping Name="tbl_AnhBia">
+            <EntityTypeMapping TypeName="QLSP1Model.tbl_AnhBia">
+              <MappingFragment StoreEntitySet="tbl_AnhBia">
+                <ScalarProperty Name="IDAB" ColumnName="IDAB" />
+                <ScalarProperty Name="HinhAnhBia" ColumnName="HinhAnhBia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_DanhSach">
+            <EntityTypeMapping TypeName="QLSP1Model.tbl_DanhSach">
+              <MappingFragment StoreEntitySet="tbl_DanhSach">
+                <ScalarProperty Name="IDDS" ColumnName="IDDS" />
+                <ScalarProperty Name="TenDanhSach" ColumnName="TenDanhSach" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+                <ScalarProperty Name="IDDanhSachCha" ColumnName="IDDanhSachCha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_NguoiDung">
+            <EntityTypeMapping TypeName="QLSP1Model.tbl_NguoiDung">
+              <MappingFragment StoreEntitySet="tbl_NguoiDung">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="matkhau" ColumnName="matkhau" />
+                <ScalarProperty Name="hoten" ColumnName="hoten" />
+                <ScalarProperty Name="mssv" ColumnName="mssv" />
+                <ScalarProperty Name="isDelete" ColumnName="isDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SanPham">
+            <EntityTypeMapping TypeName="QLSP1Model.tbl_SanPham">
+              <MappingFragment StoreEntitySet="tbl_SanPham">
+                <ScalarProperty Name="IDSP" ColumnName="IDSP" />
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="IDDS" ColumnName="IDDS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

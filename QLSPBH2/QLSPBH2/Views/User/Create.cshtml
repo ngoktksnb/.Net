@@ -1,0 +1,49 @@
+﻿@model QLSPBH2.tbl_NguoiDung
+
+@{
+    ViewBag.Title = "Thêm Mới Người Dùng";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Thêm Mới Người Dùng</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.email)
+        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.matkhau)
+        @Html.EditorFor(model => model.matkhau, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.matkhau, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.hoten)
+        @Html.EditorFor(model => model.hoten, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.hoten, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.mssv)
+        @Html.EditorFor(model => model.mssv, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.mssv, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label>Trạng Thái</label><br />
+        <label class="radio-inline">
+            <input type="radio" name="status" value="active" checked /> Kích hoạt
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="status" value="inactive" /> Không kích hoạt
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+}

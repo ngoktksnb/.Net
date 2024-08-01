@@ -1,0 +1,110 @@
+﻿@model QLSPBH2.tbl_SanPham
+
+@{
+    ViewBag.Title = "Sửa sản phẩm";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2>Sửa sản phẩm</h2>
+
+<form id="editForm" action="@Url.Action("Edit", "SanPham", new { id = Model.IDSP })" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label>ID</label>
+        <input type="hidden" class="form-control" value="@Model.IDSP" id="IDSP" name="IDSP" />
+        <span>@Model.IDSP</span>
+    </div>
+
+    <div class="form-group">
+        <label>Mã sản phẩm</label>
+        <input type="text" class="form-control" value="@Model.MaSP" id="MaSP" name="MaSP" />
+    </div>
+
+    <div class="form-group">
+        <label>Mô tả</label>
+        <input type="text" class="form-control" value="@Model.MoTa" id="MoTa" name="MoTa" />
+    </div>
+
+    <div id="imageContainer">
+        <div class="form-group">
+            <label>Hình ảnh</label>
+            @foreach (var image in Model.HinhAnh.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                <div>
+                    <img src="@Url.Content("~/Images/" + image)" class="img-thumbnail" style="max-width: 200px; max-height: 200px; margin-right: 10px;" />
+                    <input type="checkbox" name="deleteImages" value="@image" /> Xóa
+                </div>
+            }
+            <input type="file" class="form-control" name="newImageFiles" multiple onchange="previewImages(this)" />
+            <div id="previewImages"></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="button" class="btn btn-success" id="addImageButton">Thêm hình ảnh mới</button>
+    </div>
+
+    <div class="form-group">
+        <label>ID danh mục</label>
+        @if (ViewBag.DanhMucChaList != null)
+        {
+            <select class="form-control" id="IDDS" name="IDDS">
+                <option value="">Danh Mục Gốc</option>
+                @foreach (var item in (SelectList)ViewBag.DanhMucChaList)
+                {
+                    <option value="@item.Value" @(item.Value == Model.IDDS.ToString() ? "selected" : "")>@item.Text</option>
+                }
+            </select>
+        }
+        else
+        {
+            <input type="text" class="form-control" value="@Model.IDDS" id="IDDS" name="IDDS" />
+        }
+    </div>
+
+    <button class="btn btn-primary" type="submit">Lưu</button>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#addImageButton').click(function () {
+                var newInput = '<input type="file" class="form-control" name="newImageFiles" multiple />';
+                $('#imageContainer').append(newInput);
+            });
+
+            // Preview images function
+            function previewImages(input) {
+                var preview = $('#previewImages');
+                preview.html(''); // Clear previous preview
+
+                if (input.files) {
+                    var filesAmount = input.files.length;
+
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (event) {
+                            var img = $('<img class="img-thumbnail">');
+                            img.attr('src', event.target.result);
+                            img.css({
+                                'max-width': '200px',
+                                'max-height': '200px',
+                                'margin-right': '10px'
+                            });
+                            preview.append(img);
+                        }
+
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            }
+
+            // Call previewImages function on file input change
+            $('input[name="newImageFiles"]').on('change', function () {
+                previewImages(this);
+            });
+        });
+    </script>
+}
